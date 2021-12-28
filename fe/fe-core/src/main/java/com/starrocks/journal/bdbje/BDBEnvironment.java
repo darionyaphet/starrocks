@@ -422,25 +422,11 @@ public class BDBEnvironment {
     }
 
     private SyncPolicy getSyncPolicy(String policy) {
-        if (policy.equalsIgnoreCase("SYNC")) {
-            return Durability.SyncPolicy.SYNC;
-        }
-        if (policy.equalsIgnoreCase("NO_SYNC")) {
-            return Durability.SyncPolicy.NO_SYNC;
-        }
-        // default value is WRITE_NO_SYNC
-        return Durability.SyncPolicy.WRITE_NO_SYNC;
+        return Durability.SyncPolicy.valueOf(policy.toUpperCase());
     }
 
     private ReplicaAckPolicy getAckPolicy(String policy) {
-        if (policy.equalsIgnoreCase("ALL")) {
-            return Durability.ReplicaAckPolicy.ALL;
-        }
-        if (policy.equalsIgnoreCase("NONE")) {
-            return Durability.ReplicaAckPolicy.NONE;
-        }
-        // default value is SIMPLE_MAJORITY
-        return Durability.ReplicaAckPolicy.SIMPLE_MAJORITY;
+        return Durability.ReplicaAckPolicy.valueOf(policy.toUpperCase());
     }
 
 }
