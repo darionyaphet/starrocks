@@ -120,14 +120,13 @@ public class BDBEnvironment {
                 .setConfigParam(ReplicationConfig.REPLICA_TIMEOUT, Config.bdbje_heartbeat_timeout_second + " s");
         replicationConfig
                 .setConfigParam(ReplicationConfig.FEEDER_TIMEOUT, Config.bdbje_heartbeat_timeout_second + " s");
+        replicationConfig.setConsistencyPolicy(new NoConsistencyRequiredPolicy());
 
         if (isElectable) {
             replicationConfig.setReplicaAckTimeout(Config.bdbje_replica_ack_timeout_second, TimeUnit.SECONDS);
             replicationConfig.setConfigParam(ReplicationConfig.REPLICA_MAX_GROUP_COMMIT, "0");
-            replicationConfig.setConsistencyPolicy(new NoConsistencyRequiredPolicy());
         } else {
             replicationConfig.setNodeType(NodeType.SECONDARY);
-            replicationConfig.setConsistencyPolicy(new NoConsistencyRequiredPolicy());
         }
 
         // set environment config
